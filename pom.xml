@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>CrossGate-Dao</module>
         <module>CrossGate-Model</module>
         <module>CrossGate-Service</module>
         <module>CrossGate-Web</module>
@@ -74,11 +73,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.ade.fun</groupId>
-                <artifactId>CrossGate-Dao</artifactId>
-                <version>1.0.0</version>
-            </dependency>
             <dependency>
                 <groupId>com.ade.fun</groupId>
                 <artifactId>CrossGate-Model</artifactId>

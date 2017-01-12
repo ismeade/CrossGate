@@ -1,7 +1,7 @@
 package com.ade.fun.web.tomcat;
 
+import com.ade.fun.web.servlet.AccountServlet;
 import com.ade.fun.web.servlet.DefaultServlet;
-import com.ade.fun.web.servlet.NotesServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -24,11 +24,11 @@ public class TomcatServer {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8090);
         File base = new File(System.getProperty("user.dir"));
-        Context rootCtx = tomcat.addContext("/kcs", base.getAbsolutePath());
+        Context rootCtx = tomcat.addContext("/cross-gate", base.getAbsolutePath());
 
         rootCtx.setDocBase(base.getPath());
-        addServlet(rootCtx, "/"     , new DefaultServlet());
-        addServlet(rootCtx, "/notes", new NotesServlet());
+        addServlet(rootCtx, "/"   , new DefaultServlet());
+        addServlet(rootCtx, "/acc", new AccountServlet());
 
         tomcat.start();
         tomcat.getServer().await();

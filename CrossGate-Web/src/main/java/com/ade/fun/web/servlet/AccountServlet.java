@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  *
  * Created by liyang on 2017/1/12.
  */
-public class NotesServlet extends HttpServlet {
+public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -11,4 +11,10 @@
 
     <artifactId>CrossGate-Service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ade.fun</groupId>
+            <artifactId>CrossGate-Model</artifactId>
+        </dependency>
+    </dependencies>
 </project>
