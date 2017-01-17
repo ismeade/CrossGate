@@ -16,6 +16,7 @@ import com.ade.fun.model.persistent.Occupation;
 public abstract class _Character extends CayenneDataObject {
 
     public static final String CHARACTER_LEVEL_PROPERTY = "characterLevel";
+    public static final String CHARACTER_NAME_PROPERTY = "characterName";
     public static final String CHARACTER_POSITION_PROPERTY = "characterPosition";
     public static final String CHARACTER_RANK_PROPERTY = "characterRank";
     public static final String ACCOUNT_PROPERTY = "account";
@@ -28,6 +29,13 @@ public abstract class _Character extends CayenneDataObject {
     }
     public Integer getCharacterLevel() {
         return (Integer)readProperty(CHARACTER_LEVEL_PROPERTY);
+    }
+
+    public void setCharacterName(String characterName) {
+        writeProperty(CHARACTER_NAME_PROPERTY, characterName);
+    }
+    public String getCharacterName() {
+        return (String)readProperty(CHARACTER_NAME_PROPERTY);
     }
 
     public void setCharacterPosition(Position characterPosition) {

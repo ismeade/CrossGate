@@ -14,6 +14,7 @@
 		<db-attribute name="ACCOUNT_ID" type="INTEGER" length="9"/>
 		<db-attribute name="CHARACTER_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
 		<db-attribute name="CHARACTER_LEVEL" type="INTEGER" length="3"/>
+		<db-attribute name="CHARACTER_NAME" type="VARCHAR" length="20"/>
 		<db-attribute name="CHARACTER_POSITION" type="INTEGER" length="1"/>
 		<db-attribute name="CHARACTER_RANK" type="INTEGER" length="1"/>
 		<db-attribute name="OCCUPATION_ID" type="INTEGER" length="9"/>
@@ -31,10 +32,11 @@
 	<obj-entity name="Account" className="com.ade.fun.model.persistent.Account" dbEntityName="T_ACCOUNT">
 		<obj-attribute name="accountCode" type="java.lang.String" db-attribute-path="ACCOUNT_CODE"/>
 		<obj-attribute name="accountDesc" type="java.lang.String" db-attribute-path="ACCOUNT_DESC"/>
-		<obj-attribute name="accountType" type="java.lang.Integer" db-attribute-path="ACCOUNT_TYPE"/>
+		<obj-attribute name="accountType" type="com.ade.fun.model.enumeration.Type" db-attribute-path="ACCOUNT_TYPE"/>
 	</obj-entity>
 	<obj-entity name="Character" className="com.ade.fun.model.persistent.Character" dbEntityName="T_CHARACTER">
 		<obj-attribute name="characterLevel" type="java.lang.Integer" db-attribute-path="CHARACTER_LEVEL"/>
+		<obj-attribute name="characterName" type="java.lang.String" db-attribute-path="CHARACTER_NAME"/>
 		<obj-attribute name="characterPosition" type="com.ade.fun.model.enumeration.Position" db-attribute-path="CHARACTER_POSITION"/>
 		<obj-attribute name="characterRank" type="com.ade.fun.model.enumeration.Rank" db-attribute-path="CHARACTER_RANK"/>
 	</obj-entity>
@@ -63,7 +65,7 @@
 	<db-relationship name="Occupation" source="T_OCCUPATION_CATEGORY" target="T_OCCUPATION" toMany="true">
 		<db-attribute-pair source="OCCUPATION_CATEGORY_ID" target="OCCUPATION_CATEGORY_ID"/>
 	</db-relationship>
-	<obj-relationship name="character" source="Account" target="Character" deleteRule="Deny" db-relationship-path="Character"/>
+	<obj-relationship name="character" source="Account" target="Character" collection-type="java.util.Map" map-key="characterPosition" deleteRule="Cascade" db-relationship-path="Character"/>
 	<obj-relationship name="account" source="Character" target="Account" deleteRule="Nullify" db-relationship-path="Account"/>
 	<obj-relationship name="occupation" source="Character" target="Occupation" deleteRule="Nullify" db-relationship-path="Occupation"/>
 	<obj-relationship name="character" source="Occupation" target="Character" deleteRule="Deny" db-relationship-path="Character"/>

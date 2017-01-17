@@ -22,8 +22,23 @@ public class DefaultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
         try (PrintWriter pw = response.getWriter()) {
+            String url = request.getRequestURL().toString();
+            String sub = url.substring(url.indexOf("/cross-gate"), url.length());
+            String[] subs = sub.split("/");
+            if (subs.length > 2) {
+                if ("login".equals(subs[2])) {
+                    pw.write("<h3>this login page.</h3>\n");
+                } else {
+                    pw.write("<h3>this other page.</h3>\n");
+                }
+            }
+            System.out.println(sub);
             pw.write("<h3>Default Page.</h3>");
         }
+    }
+
+    private void analysisUrl() {
+
     }
 
 }

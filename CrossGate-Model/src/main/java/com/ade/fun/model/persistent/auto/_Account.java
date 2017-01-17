@@ -1,9 +1,10 @@
 package com.ade.fun.model.persistent.auto;
 
-import java.util.List;
+import java.util.Map;
 
 import org.apache.cayenne.CayenneDataObject;
 
+import com.ade.fun.model.enumeration.Type;
 import com.ade.fun.model.persistent.Character;
 
 /**
@@ -35,11 +36,11 @@ public abstract class _Account extends CayenneDataObject {
         return (String)readProperty(ACCOUNT_DESC_PROPERTY);
     }
 
-    public void setAccountType(Integer accountType) {
+    public void setAccountType(Type accountType) {
         writeProperty(ACCOUNT_TYPE_PROPERTY, accountType);
     }
-    public Integer getAccountType() {
-        return (Integer)readProperty(ACCOUNT_TYPE_PROPERTY);
+    public Type getAccountType() {
+        return (Type)readProperty(ACCOUNT_TYPE_PROPERTY);
     }
 
     public void addToCharacter(Character obj) {
@@ -49,8 +50,8 @@ public abstract class _Account extends CayenneDataObject {
         removeToManyTarget(CHARACTER_PROPERTY, obj, true);
     }
     @SuppressWarnings("unchecked")
-    public List<Character> getCharacter() {
-        return (List<Character>)readProperty(CHARACTER_PROPERTY);
+    public Map<com.ade.fun.model.enumeration.Position, Character> getCharacter() {
+        return (Map<com.ade.fun.model.enumeration.Position, Character>)readProperty(CHARACTER_PROPERTY);
     }
 
 
