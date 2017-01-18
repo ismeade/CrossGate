@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<menu>
+
+	<menu label="备忘">
+		<menu label="账号信息" path="/check.htm" />
+		<menu label="设置" path="account/arrangeSet.htm" />
+	</menu>
+
+    <menu label="资料">
+        <menu label="网站链接" path="index.htm" />
+    </menu>
+
+    <menu label="系统">
+        <menu label="用户管理" path="system/user/user-list.htm" />
+        <menu label="角色管理" path="system/role/role-list.htm" />
+        <menu label="页面管理" path="system/page/page-list.htm" />
+    </menu>
+
+</menu>

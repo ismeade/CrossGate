@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+	 project-version="6">
+	<property name="defaultPackage" value="com.ade.fun.cg.persistent"/>
+	<db-entity name="T_ACCOUNT">
+		<db-attribute name="ACCOUNT_CODE" type="VARCHAR" length="20"/>
+		<db-attribute name="ACCOUNT_DESC" type="VARCHAR" length="200"/>
+		<db-attribute name="ACCOUNT_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="ACCOUNT_TYPE" type="INTEGER" length="1"/>
+	</db-entity>
+	<db-entity name="T_CHARACTER">
+		<db-attribute name="ACCOUNT_ID" type="INTEGER" length="9"/>
+		<db-attribute name="CHARACTER_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="CHARACTER_LEVEL" type="INTEGER" length="3"/>
+		<db-attribute name="CHARACTER_NAME" type="VARCHAR" length="20"/>
+		<db-attribute name="CHARACTER_POSITION" type="INTEGER" length="1"/>
+		<db-attribute name="CHARACTER_RANK" type="INTEGER" length="1"/>
+		<db-attribute name="OCCUPATION_ID" type="INTEGER" length="9"/>
+	</db-entity>
+	<db-entity name="T_OCCUPATION">
+		<db-attribute name="OCCUPATION_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="OCCUPATION_NAME" type="VARCHAR" length="20"/>
+		<db-attribute name="OCCUPATION_TYPE" type="INTEGER" length="1"/>
+	</db-entity>
+	<db-entity name="T_SYS_PAGE">
+		<db-attribute name="PAGE_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="PAGE_LEVEL" type="INTEGER" length="1"/>
+		<db-attribute name="PAGE_NAME" type="VARCHAR" length="20"/>
+		<db-attribute name="PAGE_URL" type="VARCHAR" length="100"/>
+		<db-attribute name="P_ID" type="INTEGER" length="9"/>
+	</db-entity>
+	<db-entity name="T_SYS_ROLE">
+		<db-attribute name="ROLE_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="ROLE_NAME" type="VARCHAR" length="20"/>
+	</db-entity>
+	<db-entity name="T_SYS_ROLE_PAGE">
+		<db-attribute name="PAGE_ID" type="INTEGER" length="9"/>
+		<db-attribute name="ROLE_ID" type="INTEGER" length="9"/>
+		<db-attribute name="ROLE_PAGE_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+	</db-entity>
+	<db-entity name="T_SYS_USER">
+		<db-attribute name="LOCK_MARK" type="INTEGER" length="1"/>
+		<db-attribute name="ROLE_ID" type="INTEGER" length="9"/>
+		<db-attribute name="USER_ACCOUNT" type="VARCHAR" length="20"/>
+		<db-attribute name="USER_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
+		<db-attribute name="USER_NAME" type="VARCHAR" length="20"/>
+		<db-attribute name="USER_PASSWORD" type="VARCHAR" length="32"/>
+	</db-entity>
+	<obj-entity name="Account" className="com.ade.fun.cg.persistent.Account" dbEntityName="T_ACCOUNT">
+		<obj-attribute name="accountCode" type="java.lang.String" db-attribute-path="ACCOUNT_CODE"/>
+		<obj-attribute name="accountDesc" type="java.lang.String" db-attribute-path="ACCOUNT_DESC"/>
+		<obj-attribute name="accountType" type="java.lang.Integer" db-attribute-path="ACCOUNT_TYPE"/>
+	</obj-entity>
+	<obj-entity name="Character" className="com.ade.fun.cg.persistent.Character" dbEntityName="T_CHARACTER">
+		<obj-attribute name="characterLevel" type="java.lang.Integer" db-attribute-path="CHARACTER_LEVEL"/>
+		<obj-attribute name="characterName" type="java.lang.String" db-attribute-path="CHARACTER_NAME"/>
+		<obj-attribute name="characterPosition" type="com.ade.fun.cg.enumeration.Position" db-attribute-path="CHARACTER_POSITION"/>
+		<obj-attribute name="characterRank" type="com.ade.fun.cg.enumeration.Rank" db-attribute-path="CHARACTER_RANK"/>
+	</obj-entity>
+	<obj-entity name="Occupation" className="com.ade.fun.cg.persistent.Occupation" dbEntityName="T_OCCUPATION">
+		<obj-attribute name="occupationName" type="java.lang.String" db-attribute-path="OCCUPATION_NAME"/>
+	</obj-entity>
+	<obj-entity name="SysPage" className="com.ade.fun.cg.persistent.SysPage" dbEntityName="T_SYS_PAGE">
+		<obj-attribute name="pId" type="java.lang.Integer" db-attribute-path="P_ID"/>
+		<obj-attribute name="pageLevel" type="java.lang.Integer" db-attribute-path="PAGE_LEVEL"/>
+		<obj-attribute name="pageName" type="java.lang.String" db-attribute-path="PAGE_NAME"/>
+		<obj-attribute name="pageUrl" type="java.lang.String" db-attribute-path="PAGE_URL"/>
+	</obj-entity>
+	<obj-entity name="SysRole" className="com.ade.fun.cg.persistent.SysRole" dbEntityName="T_SYS_ROLE">
+		<obj-attribute name="roleName" type="java.lang.String" db-attribute-path="ROLE_NAME"/>
+	</obj-entity>
+	<obj-entity name="SysRolePage" className="com.ade.fun.cg.persistent.SysRolePage" dbEntityName="T_SYS_ROLE_PAGE">
+	</obj-entity>
+	<obj-entity name="SysUser" className="com.ade.fun.cg.persistent.SysUser" dbEntityName="T_SYS_USER">
+		<obj-attribute name="lockMark" type="java.lang.Integer" db-attribute-path="LOCK_MARK"/>
+		<obj-attribute name="userAccount" type="java.lang.String" db-attribute-path="USER_ACCOUNT"/>
+		<obj-attribute name="userName" type="java.lang.String" db-attribute-path="USER_NAME"/>
+		<obj-attribute name="userPassword" type="java.lang.String" db-attribute-path="USER_PASSWORD"/>
+	</obj-entity>
+	<db-relationship name="Character" source="T_ACCOUNT" target="T_CHARACTER" toMany="true">
+		<db-attribute-pair source="ACCOUNT_ID" target="ACCOUNT_ID"/>
+	</db-relationship>
+	<db-relationship name="Account" source="T_CHARACTER" target="T_ACCOUNT" toMany="false">
+		<db-attribute-pair source="ACCOUNT_ID" target="ACCOUNT_ID"/>
+	</db-relationship>
+	<db-relationship name="Occupation" source="T_CHARACTER" target="T_OCCUPATION" toMany="false">
+		<db-attribute-pair source="OCCUPATION_ID" target="OCCUPATION_ID"/>
+	</db-relationship>
+	<db-relationship name="Character" source="T_OCCUPATION" target="T_CHARACTER" toMany="true">
+		<db-attribute-pair source="OCCUPATION_ID" target="OCCUPATION_ID"/>
+	</db-relationship>
+	<db-relationship name="RolePage" source="T_SYS_PAGE" target="T_SYS_ROLE_PAGE" toMany="true">
+		<db-attribute-pair source="PAGE_ID" target="PAGE_ID"/>
+	</db-relationship>
+	<db-relationship name="RolePage" source="T_SYS_ROLE" target="T_SYS_ROLE_PAGE" toMany="true">
+		<db-attribute-pair source="ROLE_ID" target="ROLE_ID"/>
+	</db-relationship>
+	<db-relationship name="User" source="T_SYS_ROLE" target="T_SYS_USER" toMany="true">
+		<db-attribute-pair source="ROLE_ID" target="ROLE_ID"/>
+	</db-relationship>
+	<db-relationship name="Page" source="T_SYS_ROLE_PAGE" target="T_SYS_PAGE" toMany="false">
+		<db-attribute-pair source="PAGE_ID" target="PAGE_ID"/>
+	</db-relationship>
+	<db-relationship name="Role" source="T_SYS_ROLE_PAGE" target="T_SYS_ROLE" toMany="false">
+		<db-attribute-pair source="ROLE_ID" target="ROLE_ID"/>
+	</db-relationship>
+	<db-relationship name="Role" source="T_SYS_USER" target="T_SYS_ROLE" toMany="false">
+		<db-attribute-pair source="ROLE_ID" target="ROLE_ID"/>
+	</db-relationship>
+	<obj-relationship name="character" source="Account" target="Character" collection-type="java.util.Map" map-key="characterPosition" deleteRule="Deny" db-relationship-path="Character"/>
+	<obj-relationship name="account" source="Character" target="Account" deleteRule="Nullify" db-relationship-path="Account"/>
+	<obj-relationship name="occupation" source="Character" target="Occupation" deleteRule="Nullify" db-relationship-path="Occupation"/>
+	<obj-relationship name="character" source="Occupation" target="Character" deleteRule="Deny" db-relationship-path="Character"/>
+	<obj-relationship name="rolePage" source="SysPage" target="SysRolePage" deleteRule="Cascade" db-relationship-path="RolePage"/>
+	<obj-relationship name="rolePage" source="SysRole" target="SysRolePage" deleteRule="Cascade" db-relationship-path="RolePage"/>
+	<obj-relationship name="user" source="SysRole" target="SysUser" deleteRule="Deny" db-relationship-path="User"/>
+	<obj-relationship name="page" source="SysRolePage" target="SysPage" deleteRule="Nullify" db-relationship-path="Page"/>
+	<obj-relationship name="role" source="SysRolePage" target="SysRole" deleteRule="Nullify" db-relationship-path="Role"/>
+	<obj-relationship name="role" source="SysUser" target="SysRole" deleteRule="Nullify" db-relationship-path="Role"/>
+</data-map>
