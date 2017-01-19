@@ -36,12 +36,14 @@ public class BorderPage extends Page {
         super.onInit();
         
         getHeadElements().add(new CssImport("/assets/style.css"));
+        getHeadElements().add(new CssImport("/css/custom.css"));
+//        getHeadElements().add(new CssImport("/css/buttons.css"));
 
         MenuFactory menuFactory = new MenuFactory();
         rootMenu = menuFactory.getRootMenu();
 
         Menu menu = createMenu(getSysUser().getUserName(), null, rootMenu.getAccessController());
-        menu.add(createMenu("个人设置", "index.htm", menu.getAccessController()));
+        menu.add(createMenu("修改密码", "self/password/password-edit.htm", menu.getAccessController()));
         menu.add(createMenu("退出", "logout.htm", menu.getAccessController()));
         rootMenu.add(menu);
 

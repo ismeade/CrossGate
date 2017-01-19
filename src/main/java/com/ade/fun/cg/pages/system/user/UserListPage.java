@@ -3,9 +3,6 @@ package com.ade.fun.cg.pages.system.user;
 import com.ade.fun.cg.dao.SysUserDao;
 import com.ade.fun.cg.pages.BorderPage;
 import com.ade.fun.cg.persistent.SysUser;
-import com.ade.fun.cg.utils.IntegerUtils;
-import org.apache.cayenne.Cayenne;
-import org.apache.cayenne.ObjectContext;
 import org.apache.click.ActionListener;
 import org.apache.click.Control;
 import org.apache.click.control.*;
@@ -45,11 +42,17 @@ public class UserListPage extends BorderPage {
         table.setSortable(true);
         table.setPaginator(new TableInlinePaginator(table));
         table.setPaginatorAttachment(Table.PAGINATOR_INLINE);
+        table.addColumn(new Column("pk", "ID"));
 
-        table.addColumn(new Column("pk"                         , "ID"));
-        table.addColumn(new Column(SysUser.USER_ACCOUNT_PROPERTY, "账号"));
-        table.addColumn(new Column(SysUser.USER_NAME_PROPERTY   , "姓名"));
-//        table.addColumn(new Column(SysUser.ROLE_PROPERTY        , "角色"));
+        Column columnCode = new Column(SysUser.USER_ACCOUNT_PROPERTY, "账号");
+        columnCode.setDataClass("w100");
+        table.addColumn(columnCode);
+
+        Column columnName = new Column(SysUser.USER_ACCOUNT_PROPERTY, "姓名");
+        columnName.setDataClass("w100");
+        table.addColumn(columnName);
+
+//        table.addColumn(new Column(SysUser.ROLE_PROPERTY, "角色"));
 
         deleteLink.setImageSrc("/images/table-delete.png");
         deleteLink.setTitle("Delete user record");
@@ -75,23 +78,13 @@ public class UserListPage extends BorderPage {
             }
         });
 
-        // Restore the table sort and paging state from the session between requests
         table.restoreState(getContext());
     }
 
     public boolean onDeleteClick() {
         try {
             Integer pk = deleteLink.getValueInteger();
-            if (IntegerUtils.isPositive(pk)) {
-                ObjectContext context = getSysUser().getObjectContext();
-                SysUser user = Cayenne.objectForPK(context, SysUser.class, pk);
-                if (null != user) {
-                    context.deleteObject(user);
-                    context.commitChanges();
-                    setRedirect(this.getClass());
-                    return true;
-                }
-            }
+            return SysUserDao.getInstance().deleteUser(getSysUser().getObjectContext(), pk);
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage(), e);
         }

@@ -16,7 +16,6 @@ public abstract class _Account extends CayenneDataObject {
 
     public static final String ACCOUNT_CODE_PROPERTY = "accountCode";
     public static final String ACCOUNT_DESC_PROPERTY = "accountDesc";
-    public static final String ACCOUNT_TYPE_PROPERTY = "accountType";
     public static final String CHARACTER_PROPERTY = "character";
 
     public static final String ACCOUNT_ID_PK_COLUMN = "ACCOUNT_ID";
@@ -33,13 +32,6 @@ public abstract class _Account extends CayenneDataObject {
     }
     public String getAccountDesc() {
         return (String)readProperty(ACCOUNT_DESC_PROPERTY);
-    }
-
-    public void setAccountType(Integer accountType) {
-        writeProperty(ACCOUNT_TYPE_PROPERTY, accountType);
-    }
-    public Integer getAccountType() {
-        return (Integer)readProperty(ACCOUNT_TYPE_PROPERTY);
     }
 
     public void addToCharacter(Character obj) {

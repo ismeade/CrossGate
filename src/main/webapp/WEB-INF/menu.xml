@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <menu>
 
-	<menu label="备忘">
-		<menu label="账号信息" path="/check.htm" />
-		<menu label="设置" path="account/arrangeSet.htm" />
+    <menu label="留言板" path="index.htm" />
+
+	<menu label="记事本" path="index.htm">
+		<menu label="账号信息" path="note/account/account-list.htm" />
+		<menu label="设置(未开发)" path="account/arrangeSet.htm" />
 	</menu>
 
     <menu label="资料">
-        <menu label="网站链接" path="index.htm" />
+        <menu label="网站链接(未开发)" path="index.htm" />
+    </menu>
+
+    <menu label="工具">
+        <menu label="计算器(未开发)" path="index.htm" />
     </menu>
 
     <menu label="系统">
         <menu label="用户管理" path="system/user/user-list.htm" />
-        <menu label="角色管理" path="system/role/role-list.htm" />
-        <menu label="页面管理" path="system/page/page-list.htm" />
+        <menu label="角色管理(未开发)" path="system/role/role-list.htm" />
+        <menu label="页面管理(未开发)" path="system/page/page-list.htm" />
     </menu>
 
 </menu>

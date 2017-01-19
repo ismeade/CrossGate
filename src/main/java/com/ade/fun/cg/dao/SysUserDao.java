@@ -52,7 +52,7 @@ public class SysUserDao {
         return null;
     }
 
-    public Boolean canCreate(ObjectContext context, String userAccount) {
+    public boolean canCreate(ObjectContext context, String userAccount) {
         if (null == context || !StringUtils.isPositive(userAccount)) return false;
         try {
             Expression expression = ExpressionFactory.matchExp(SysUser.USER_ACCOUNT_PROPERTY, userAccount);
@@ -66,8 +66,8 @@ public class SysUserDao {
         return false;
     }
 
-    public Boolean createSysUser(ObjectContext context, String userName, String userAccount, String passWord, Integer level) {
-        if (null == context || !StringUtils.isPositive(userName, userAccount, passWord) || !IntegerUtils.isPositive(level)) return false;
+    public boolean createSysUser(ObjectContext context, String userName, String userAccount, String passWord) {
+        if (null == context || !StringUtils.isPositive(userName, userAccount, passWord)) return false;
         try {
             SysUser user = context.newObject(SysUser.class);
             user.setLockMark(0);
@@ -76,6 +76,19 @@ public class SysUserDao {
             user.setUserPassword(Md5Utils.string2Md5(passWord + MD5_KEY));
             context.commitChanges();
             logger.info("create SysUser: " + user);
+            return true;
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
+        return false;
+    }
+
+    public boolean editPassword(SysUser currUser, String passWord) {
+        if (null == currUser || !StringUtils.isPositive(passWord)) return false;
+        try {
+            currUser.setUserPassword(Md5Utils.string2Md5(passWord + MD5_KEY));
+            currUser.getObjectContext().commitChanges();
+            logger.info("edit password: " + currUser);
             return true;
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage(), e);
@@ -95,8 +108,8 @@ public class SysUserDao {
         return null;
     }
 
-    public Boolean deleteUser(ObjectContext context, Integer pk) {
-        if (null == context) return false;
+    public boolean deleteUser(ObjectContext context, Integer pk) {
+        if (null == context || !IntegerUtils.isPositive(pk)) return false;
         SysUser user = Cayenne.objectForPK(context, SysUser.class, pk);
         if (null != user) {
             context.deleteObject(user);

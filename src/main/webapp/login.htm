@@ -1,10 +1,14 @@
 <html>
 <head>$headElements
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
 <body>
-	$jsElements $form
+	$jsElements
+    <div style="margin:0 auto;width:250px;">
+    $form
     #if ($message)
 	<div id="msgDiv">$message</div>
 	#end
+    </div>
 </body>
 </html>

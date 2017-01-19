@@ -6,9 +6,8 @@
 	<property name="defaultPackage" value="com.ade.fun.cg.persistent"/>
 	<db-entity name="T_ACCOUNT">
 		<db-attribute name="ACCOUNT_CODE" type="VARCHAR" length="20"/>
-		<db-attribute name="ACCOUNT_DESC" type="VARCHAR" length="200"/>
+		<db-attribute name="ACCOUNT_DESC" type="VARCHAR" length="2000"/>
 		<db-attribute name="ACCOUNT_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
-		<db-attribute name="ACCOUNT_TYPE" type="INTEGER" length="1"/>
 	</db-entity>
 	<db-entity name="T_CHARACTER">
 		<db-attribute name="ACCOUNT_ID" type="INTEGER" length="9"/>
@@ -51,7 +50,6 @@
 	<obj-entity name="Account" className="com.ade.fun.cg.persistent.Account" dbEntityName="T_ACCOUNT">
 		<obj-attribute name="accountCode" type="java.lang.String" db-attribute-path="ACCOUNT_CODE"/>
 		<obj-attribute name="accountDesc" type="java.lang.String" db-attribute-path="ACCOUNT_DESC"/>
-		<obj-attribute name="accountType" type="java.lang.Integer" db-attribute-path="ACCOUNT_TYPE"/>
 	</obj-entity>
 	<obj-entity name="Character" className="com.ade.fun.cg.persistent.Character" dbEntityName="T_CHARACTER">
 		<obj-attribute name="characterLevel" type="java.lang.Integer" db-attribute-path="CHARACTER_LEVEL"/>

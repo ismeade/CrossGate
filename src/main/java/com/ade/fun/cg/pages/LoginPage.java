@@ -3,11 +3,7 @@ package com.ade.fun.cg.pages;
 import com.ade.fun.cg.dao.SysUserDao;
 import com.ade.fun.cg.persistent.SysUser;
 import org.apache.click.Page;
-import org.apache.click.control.FieldSet;
-import org.apache.click.control.Form;
-import org.apache.click.control.PasswordField;
-import org.apache.click.control.Submit;
-import org.apache.click.control.TextField;
+import org.apache.click.control.*;
 import org.apache.click.element.CssImport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,20 +16,29 @@ public class LoginPage extends Page {
 	
 	/** Constructor */
 	public LoginPage(){
+
+        form.setErrorsPosition(Form.POSITION_BOTTOM);
+
 		addControl(form);
 		FieldSet fieldSet = new FieldSet("Login");
 		form.add(fieldSet);
-		TextField userName = new TextField("userName", "账号", true);
-		userName.setMaxLength(20);
-		userName.setFocus(true);
-		fieldSet.add(userName);
+		TextField userAccount = new TextField("userAccount", "账号", true);
+		userAccount.setMaxLength(20);
+		userAccount.setFocus(true);
+		fieldSet.add(userAccount);
 		
-		PasswordField passWord = new PasswordField("passWord", "密码", true);
-		passWord.setMaxLength(20);
-		fieldSet.add(passWord);
-		
-		fieldSet.add(new Submit("ok"    , "登录", this, "onSubmit"));
-		fieldSet.add(new Submit("cancel", "还原", this, "onCancel"));
+		PasswordField passwordField = new PasswordField("password", "密码", true);
+		passwordField.setMaxLength(20);
+        passwordField.addStyleClass("wh100");
+		fieldSet.add(passwordField);
+
+
+
+        Submit submitOk = new Submit("ok", "登录", this, "onSubmit");
+		fieldSet.add(submitOk);
+
+        Reset reset = new Reset("还原");
+        fieldSet.add(reset);
 	}
 
     @Override
@@ -44,8 +49,8 @@ public class LoginPage extends Page {
 
 	public boolean onSubmit() {
 		if (form.isValid()) {
-			String userName = form.getFieldValue("userName");
-			String passWord = form.getFieldValue("passWord");
+			String userName = form.getFieldValue("userAccount");
+			String passWord = form.getFieldValue("password");
             logger.info("userName:" + userName + " passWord:" + passWord);
             SysUser sysUser = SysUserDao.getInstance().getSysUser(userName, passWord);
             if (null == sysUser) {
@@ -66,4 +71,12 @@ public class LoginPage extends Page {
 		return false;
 	}
 
+//    private SysUser getSysUser() {
+//        try {
+//            return (SysUser) getContext().getSessionAttribute("curr_user");
+//        } catch (Exception e) {
+//            logger.error(e.getLocalizedMessage(), e);
+//        }
+//        return null;
+//    }
 }

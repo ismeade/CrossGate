@@ -14,18 +14,10 @@ import com.ade.fun.cg.persistent.Character;
  */
 public abstract class _Occupation extends CayenneDataObject {
 
-    public static final String OCCUPATION_CATEGORY_ID_PROPERTY = "occupationCategoryId";
     public static final String OCCUPATION_NAME_PROPERTY = "occupationName";
     public static final String CHARACTER_PROPERTY = "character";
 
     public static final String OCCUPATION_ID_PK_COLUMN = "OCCUPATION_ID";
-
-    public void setOccupationCategoryId(Integer occupationCategoryId) {
-        writeProperty(OCCUPATION_CATEGORY_ID_PROPERTY, occupationCategoryId);
-    }
-    public Integer getOccupationCategoryId() {
-        return (Integer)readProperty(OCCUPATION_CATEGORY_ID_PROPERTY);
-    }
 
     public void setOccupationName(String occupationName) {
         writeProperty(OCCUPATION_NAME_PROPERTY, occupationName);

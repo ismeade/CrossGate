@@ -2,19 +2,18 @@ package com.ade.fun.cg.pages.system.user;
 
 import com.ade.fun.cg.dao.SysUserDao;
 import com.ade.fun.cg.pages.BorderPage;
-import com.ade.fun.cg.persistent.SysRole;
 import com.ade.fun.cg.persistent.SysUser;
 import org.apache.click.control.*;
-import org.apache.click.dataprovider.DataProvider;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * Created by liyang on 2017/1/18.
  */
 public class UserCreatePage extends BorderPage {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Form form = new Form("form");
 
@@ -30,8 +29,8 @@ public class UserCreatePage extends BorderPage {
         fieldSet.add(nameField);
 
         TextField accountField = new TextField(SysUser.USER_ACCOUNT_PROPERTY, "账号", true);
-        nameField.setMaxLength(20);
-        nameField.setFocus(true);
+        accountField.setMaxLength(20);
+        accountField.setFocus(true);
         fieldSet.add(accountField);
 
         PasswordField passField = new PasswordField(SysUser.USER_PASSWORD_PROPERTY, "密码", true);
@@ -68,27 +67,30 @@ public class UserCreatePage extends BorderPage {
      * @return true
      */
     public boolean onOkClicked() {
-        if (form.isValid()) {
-            String userName    = form.getFieldValue(SysUser.USER_NAME_PROPERTY);
-            String userAccount = form.getFieldValue(SysUser.USER_ACCOUNT_PROPERTY);
-            String passWord    = form.getFieldValue(SysUser.USER_PASSWORD_PROPERTY);
-            String cPassWord   = form.getFieldValue("cPassWord");
-//            String roleId      = form.getFieldValue(SysUser.ROLE_PROPERTY);
-            String msg = null;
-            if (!passWord.equals(cPassWord)) {
-                msg = "重复密码不一致ͬ";
-                form.getField(SysUser.USER_PASSWORD_PROPERTY).setValue("");
-                form.getField("cPassWord").setValue("");
-                form.getField(SysUser.USER_PASSWORD_PROPERTY).setFocus(true);
-                addModel("msg", msg);
-            } else if (SysUserDao.getInstance().canCreate(getSysUser().getObjectContext(), userAccount)) {
-                SysUserDao.getInstance().createSysUser(getSysUser().getObjectContext(), userName, userAccount, passWord, 9);
-                setRedirect(UserListPage.class);
-            } else {
-                msg = "账号已存在ͬ";
-                form.getField(SysUser.USER_ACCOUNT_PROPERTY).setFocus(true);
-                addModel("msg", msg);
+        try {
+            if (form.isValid()) {
+                String userName    = form.getFieldValue(SysUser.USER_NAME_PROPERTY);
+                String userAccount = form.getFieldValue(SysUser.USER_ACCOUNT_PROPERTY);
+                String passWord    = form.getFieldValue(SysUser.USER_PASSWORD_PROPERTY);
+                String cPassWord   = form.getFieldValue("cPassWord");
+                if (!passWord.equals(cPassWord)) {
+                    form.getField(SysUser.USER_PASSWORD_PROPERTY).setValue("");
+                    form.getField("cPassWord").setValue("");
+                    form.getField(SysUser.USER_PASSWORD_PROPERTY).setFocus(true);
+                    addModel("msg", "密码不一致");
+                } else if (SysUserDao.getInstance().canCreate(getSysUser().getObjectContext(), userAccount)) {
+                    if (SysUserDao.getInstance().createSysUser(getSysUser().getObjectContext(), userName, userAccount, passWord)) {
+                        setRedirect(UserListPage.class);
+                    } else {
+                        addModel("msg", "失败");
+                    }
+                } else {
+                    form.getField(SysUser.USER_ACCOUNT_PROPERTY).setFocus(true);
+                    addModel("msg", "账号已存在");
+                }
             }
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
         }
         return true;
     }
