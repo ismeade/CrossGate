@@ -63,7 +63,7 @@ public class AccountListPage extends BorderPage {
         table.setSortable(true);
         table.setPaginator(new TableInlinePaginator(table));
         table.setPaginatorAttachment(Table.PAGINATOR_INLINE);
-        table.addColumn(new Column("pk", "ID"));
+//        table.addColumn(new Column("pk", "ID"));
 
         Column columnCode = new Column(Account.ACCOUNT_CODE_PROPERTY, "账号");
         columnCode.setDataClass("w100");

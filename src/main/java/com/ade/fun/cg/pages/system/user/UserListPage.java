@@ -48,10 +48,13 @@ public class UserListPage extends BorderPage {
         columnCode.setDataClass("w100");
         table.addColumn(columnCode);
 
-        Column columnName = new Column(SysUser.USER_ACCOUNT_PROPERTY, "姓名");
+        Column columnName = new Column(SysUser.USER_NAME_PROPERTY, "姓名");
         columnName.setDataClass("w100");
         table.addColumn(columnName);
 
+        Column columnLast = new Column(SysUser.LAST_LOGIN_PROPERTY + "Time", "最后登录");
+        columnLast.setDataClass("w150");
+        table.addColumn(columnLast);
 //        table.addColumn(new Column(SysUser.ROLE_PROPERTY, "角色"));
 
         deleteLink.setImageSrc("/images/table-delete.png");

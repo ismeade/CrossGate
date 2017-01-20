@@ -8,6 +8,9 @@ import org.apache.click.element.CssImport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
+import java.util.TimeZone;
+
 public class LoginPage extends Page {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -48,21 +51,29 @@ public class LoginPage extends Page {
     }
 
 	public boolean onSubmit() {
-		if (form.isValid()) {
-			String userName = form.getFieldValue("userAccount");
-			String passWord = form.getFieldValue("password");
-            logger.info("userName:" + userName + " passWord:" + passWord);
-            SysUser sysUser = SysUserDao.getInstance().getSysUser(userName, passWord);
-            if (null == sysUser) {
-                addModel("message", "账号或密码错误");
-            } else if (null == sysUser.getLockMark() || 0 < sysUser.getLockMark()) {
-                addModel("message", "账号被锁定");
-            } else {
-                getContext().setSessionAttribute("curr_user", sysUser);
-                setRedirect(IndexPage.class);
-            }
+        try {
+            if (form.isValid()) {
+                String userName = form.getFieldValue("userAccount");
+                String passWord = form.getFieldValue("password");
+                logger.info("userName:" + userName + " passWord:" + passWord);
+                SysUser sysUser = SysUserDao.getInstance().getSysUser(userName, passWord);
+                if (null == sysUser) {
+                    addModel("message", "账号或密码错误");
+                } else if (null == sysUser.getLockMark() || 0 < sysUser.getLockMark()) {
+                    addModel("message", "账号被锁定");
+                } else {
+                    TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+                    sysUser.setLastLogin(new Date());
+                    sysUser.getObjectContext().commitChanges();
+                    getContext().setSessionAttribute("curr_user", sysUser);
+                    setRedirect(IndexPage.class);
+                }
 //			form.clearValues();
-		}
+            }
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+            addModel("message", "系统错误，请联系管理员。");
+        }
 		return true;
 	}
 	
@@ -71,12 +82,4 @@ public class LoginPage extends Page {
 		return false;
 	}
 
-//    private SysUser getSysUser() {
-//        try {
-//            return (SysUser) getContext().getSessionAttribute("curr_user");
-//        } catch (Exception e) {
-//            logger.error(e.getLocalizedMessage(), e);
-//        }
-//        return null;
-//    }
 }

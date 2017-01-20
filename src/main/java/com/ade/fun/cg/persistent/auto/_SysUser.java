@@ -1,5 +1,7 @@
 package com.ade.fun.cg.persistent.auto;
 
+import java.util.Date;
+
 import org.apache.cayenne.CayenneDataObject;
 
 import com.ade.fun.cg.persistent.SysRole;
@@ -12,6 +14,7 @@ import com.ade.fun.cg.persistent.SysRole;
  */
 public abstract class _SysUser extends CayenneDataObject {
 
+    public static final String LAST_LOGIN_PROPERTY = "lastLogin";
     public static final String LOCK_MARK_PROPERTY = "lockMark";
     public static final String USER_ACCOUNT_PROPERTY = "userAccount";
     public static final String USER_NAME_PROPERTY = "userName";
@@ -19,6 +22,13 @@ public abstract class _SysUser extends CayenneDataObject {
     public static final String ROLE_PROPERTY = "role";
 
     public static final String USER_ID_PK_COLUMN = "USER_ID";
+
+    public void setLastLogin(Date lastLogin) {
+        writeProperty(LAST_LOGIN_PROPERTY, lastLogin);
+    }
+    public Date getLastLogin() {
+        return (Date)readProperty(LAST_LOGIN_PROPERTY);
+    }
 
     public void setLockMark(Integer lockMark) {
         writeProperty(LOCK_MARK_PROPERTY, lockMark);

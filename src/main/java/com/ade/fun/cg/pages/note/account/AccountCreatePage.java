@@ -25,20 +25,18 @@ public class AccountCreatePage extends BorderPage {
         TextField codeField = new TextField(Account.ACCOUNT_CODE_PROPERTY, "账号", true);
         codeField.setMaxLength(20);
         codeField.setFocus(true);
-        codeField.addStyleClass("w300");
+        codeField.addStyleClass("w250");
         fieldSet.add(codeField);
 
         TextArea descArea = new TextArea(Account.ACCOUNT_DESC_PROPERTY, "备注");
         descArea.setMaxLength(2000);
-        descArea.addStyleClass("w300");
+        descArea.addStyleClass("w250");
         descArea.addStyleClass("h200");
         fieldSet.add(descArea);
 
         Submit submitOk = new Submit("ok", "保存", this, "onOkClicked");
-        submitOk.addStyleClass("wh100");
         fieldSet.add(submitOk);
-        Submit submitCancel = new Submit("cancel", "还原", this, "onCancelClicked");
-        submitCancel.addStyleClass("wh100");
+        Submit submitCancel = new Submit("cancel", "返回", this, "onCancelClicked");
         fieldSet.add(submitCancel);
     }
 

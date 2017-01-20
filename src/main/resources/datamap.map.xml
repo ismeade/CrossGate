@@ -40,6 +40,7 @@
 		<db-attribute name="ROLE_PAGE_ID" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="9"/>
 	</db-entity>
 	<db-entity name="T_SYS_USER">
+		<db-attribute name="LAST_LOGIN" type="TIMESTAMP" length="7"/>
 		<db-attribute name="LOCK_MARK" type="INTEGER" length="1"/>
 		<db-attribute name="ROLE_ID" type="INTEGER" length="9"/>
 		<db-attribute name="USER_ACCOUNT" type="VARCHAR" length="20"/>
@@ -72,6 +73,7 @@
 	<obj-entity name="SysRolePage" className="com.ade.fun.cg.persistent.SysRolePage" dbEntityName="T_SYS_ROLE_PAGE">
 	</obj-entity>
 	<obj-entity name="SysUser" className="com.ade.fun.cg.persistent.SysUser" dbEntityName="T_SYS_USER">
+		<obj-attribute name="lastLogin" type="java.util.Date" db-attribute-path="LAST_LOGIN"/>
 		<obj-attribute name="lockMark" type="java.lang.Integer" db-attribute-path="LOCK_MARK"/>
 		<obj-attribute name="userAccount" type="java.lang.String" db-attribute-path="USER_ACCOUNT"/>
 		<obj-attribute name="userName" type="java.lang.String" db-attribute-path="USER_NAME"/>

@@ -57,7 +57,7 @@ public class UserCreatePage extends BorderPage {
 //        });
 
         form.add(new Submit("ok", "确定", this, "onOkClicked"));
-        form.add(new Submit("cancel", this, "onCancelClicked"));
+        form.add(new Submit("cancel", "返回", this, "onCancelClicked"));
 
     }
 
